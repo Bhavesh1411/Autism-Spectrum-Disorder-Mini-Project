@@ -252,7 +252,10 @@
 
     <nav class="navbar">
         <a href="/" class="logo">ASD ANALYTICS HUB</a>
-        <div class="nav-links">
+        <div class="nav-links" style="display: flex; align-items: center; gap: 20px;">
+            <span style="font-size: 0.9rem; color: var(--text-secondary);">
+                Welcome, <strong style="color: var(--accent-teal);">{{ user_name }}</strong>
+            </span>
             <a href="/">Screening</a>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout" class="btn-logout">Sign Out</a>

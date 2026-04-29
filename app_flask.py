@@ -357,7 +357,7 @@ def predict():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", user_name=session.get("user_name", ""))
 
 
 # -- API: stats --
