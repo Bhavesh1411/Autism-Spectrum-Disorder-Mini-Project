@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+.ipynb_checkpoints/
+*.xlsx
+# user_data.xlsx
+# best_model.pkl
+# encoders.pkl
+# We will include models and sample data for this mini project as requested by user.

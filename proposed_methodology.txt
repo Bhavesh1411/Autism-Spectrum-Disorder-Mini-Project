@@ -1,0 +1,26 @@
+Proposed Methdology for ASD Screening Project
+
+Our project follows a structured approach to build a reliable screening tool for Autism Spectrum Disorder (ASD). The methodology is divided into several key phases based on the actual implementation done in the codebase.
+
+1. Data Preprocessng and Cleaning
+First we loaded the dataset from train.csv and started cleaning it. We removed columns like ID, age_desc and result because they dont contribute to the prediction or cause data leakage. We also handled missing values in ethnicity and relation by catagorizing unknown entries as "Others" to keep the data consistent.
+
+2. Encoding and Feature Engineering
+Since machine learning models cant understand text we used LabelEncoder to convert catagorical features like gender, ethnicity and country into numbers. These encoders are saved in encoders.pkl so they can be reused during real-time screening in the web app.
+
+3. Handling Class Imbalance
+The dataset had more non-ASD cases than ASD cases which can make the model biased. To fix this we used SMOTE (Synthetic Minority Over-sampling Technique) to balance the training data. This ensures that the model learns features of both classes equally well.
+
+4. Dataset Split: Dividing the dataset into training (70%), validation (15%), and testing (15%) sets to ensure robust model evaluation.
+
+5. Model Training & Monitoring: Training multiple classifiers (Random Forest, XGBoost, etc.) using 5-fold cross-validation, with real-time performance monitoring on the validation set.
+
+6. Hyperparameter Tuning: Using Randomized Search to optimize the Random Forest model.
+
+7. Multi-Phase Evaluation: Assessing the best model's performance on both validation and test sets using accuracy, ROC curves, Precision-Recall curves, and classification reports. The final best model is stored as best_model.pkl.
+
+8. Web Integration and XAI
+The model is integrated into a Flask application. When a user submits the form the app calculates the ASD probablity and assigns a Risk Level (Low, Medium, or High). We also implemented Explainable AI (XAI) logic to show which traits (like A1_Score or A5_Score) contributed most to the result and provide specific recommendations based on those traits.
+
+9. Data Logging
+Finally all screening results including user details and model predictions are atomatically logged into an Excel file (user_data.xlsx) for future reference and record keeping.

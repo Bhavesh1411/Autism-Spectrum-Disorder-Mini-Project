@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASD Risk Prediction Tool | Healthcare Tech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="mainCard">
+
+            <!-- User bar -->
+            <div class="user-bar">
+                <span class="user-greeting">
+                    <span class="user-avatar">{{ user_name[0]|upper }}</span>
+                    Welcome, <strong>{{ user_name }}</strong>
+                </span>
+                <div class="user-actions">
+                    <a href="/dashboard" class="btn-dashboard">View Analytics</a>
+                    <a href="/logout" class="btn-logout">Logout</a>
+                </div>
+            </div>
+
+            <header>
+                <h1>🧠 ASD Risk Prediction</h1>
+                <p>Advanced screening tool powered by machine learning</p>
+            </header>
+
+            <form id="predictionForm">
+                <!-- Screening Questions -->
+                <div class="form-section">
+                    <h2>📝 Screening Questions</h2>
+                    <div id="questionsContainer"></div>
+                </div>
+
+                <!-- Background Details -->
+                <div class="form-section">
+                    <h2>👤 Background Details</h2>
+                    <div class="grid-cols-2">
+                        <div class="input-container">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="1" max="100" value="20" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="ethnicity">Ethnicity</label>
+                            <select id="ethnicity" name="ethnicity" required>
+                                <option value="" disabled selected>Loading...</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="jaundice">Jaundice at birth</label>
+                            <select id="jaundice" name="jaundice" required>
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="austim">Family history of ASD</label>
+                            <select id="austim" name="austim" required>
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="contry_of_res">Country of Residence</label>
+                            <select id="contry_of_res" name="contry_of_res" required>
+                                <option value="" disabled selected>Loading...</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="used_app_before">Used screening app before?</label>
+                            <select id="used_app_before" name="used_app_before" required>
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label for="relation">Relation to person</label>
+                            <select id="relation" name="relation" required>
+                                <option value="" disabled selected>Loading...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Check ASD Risk</button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing behavioral patterns...</p>
+                </div>
+            </form>
+
+            <!-- Results -->
+            <div id="resultArea" class="result-area" style="display:none;">
+                <div id="resultCard" class="result-card">
+                    <div class="result-badge" id="resultBadge"></div>
+                    <h3 id="resultTitle">Result</h3>
+                    <p id="resultMessage" class="result-message"></p>
+                    <div class="prob-bar-wrap">
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill" id="probBar"></div>
+                        </div>
+                        <span class="prob-label">ASD Probability: <strong id="probValue">0</strong>%</span>
+                    </div>
+                </div>
+
+                <div class="info-card why-card">
+                    <h3 class="info-card-title">🔍 Why this result?</h3>
+                    <p class="info-card-subtitle">Top contributing factors identified in your responses:</p>
+                    <ul id="explanationList" class="explanation-list"></ul>
+                </div>
+
+                <div class="info-card reco-card">
+                    <h3 class="info-card-title">💡 Suggestions to help</h3>
+                    <p class="info-card-subtitle">Practical, supportive actions based on your profile:</p>
+                    <div id="recommendationList" class="recommendation-list"></div>
+                </div>
+
+                <button class="btn-submit btn-reset" onclick="resetForm()">Start New Screening</button>
+            </div>
+
+            <p class="disclaimer">
+                Disclaimer: This is a screening tool based on a machine learning model and does not constitute a medical diagnosis.
+                Please consult a qualified healthcare professional for a formal evaluation.
+            </p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
